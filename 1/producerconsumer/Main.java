@@ -1,5 +1,7 @@
 package producerconsumer;
 
+import producerconsumer.gui.WarehouseWindow;
+
 public class Main {
     public static final int DEFAULT_SLEEP = 50;
     public static void main(String[] args) {

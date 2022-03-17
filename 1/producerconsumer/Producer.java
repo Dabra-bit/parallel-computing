@@ -1,31 +1,36 @@
 package producerconsumer;
 
 import java.util.Random;
+import producerconsumer.gui.ProducerCard;
 
 public class Producer extends Thread {
+    public static final int PRODUCE_SLEEP = 500;
     private static final Random rand = new Random();
 
     private Buffer buffer;
-    private int sleep;
+    private ProducerCard gui;
 
-    public Producer(String name, Buffer buffer, int sleep) {
+    public Producer(String name, Buffer buffer, ProducerCard gui) {
         super(name);
         this.buffer = buffer;
-        this.sleep = sleep;
+        this.gui = gui;
+        this.gui.setVisible(true);
     }
 
     private void produce(int num) throws InterruptedException {
         synchronized (this.buffer) {
             while(this.buffer.size() == Buffer.MAX_ELEMENTS) {
                 System.out.println(getName() + ": Full warehouse, waiting on customers...");
+                gui.updateCard(ProducerCard.SLEEPING);
                 this.buffer.wait();
             }
 
             this.buffer.add(num);
             System.out.println(getName() + ": added: " + num);
+            gui.updateCard(ProducerCard.PRODUCING);
             this.buffer.notifyAll();
         }
-        Thread.sleep(this.sleep);
+        Thread.sleep(Producer.PRODUCE_SLEEP);
     }
 
     @Override

@@ -1,28 +1,34 @@
 package producerconsumer;
 
+import producerconsumer.gui.ConsumerCard;
+
 public class Consumer extends Thread {
+    public static final int CONSUME_SLEEP = 500;
 
     private Buffer buffer;
-    private int sleep;
+    private ConsumerCard gui;
 
-    public Consumer(String name, Buffer buffer, int sleep) {
+    public Consumer(String name, Buffer buffer, ConsumerCard gui) {
         super(name);
         this.buffer = buffer;
-        this.sleep = sleep;
+        this.gui = gui;
+        this.gui.setVisible(true);
     }
 
     public void consume() throws InterruptedException {
         synchronized (this.buffer) {
             while(this.buffer.size() == Buffer.MIN_ELEMENTS) {
                 System.out.println(getName() + ": Empty warehouse, waiting on producers...");
+                gui.updateCard(ConsumerCard.SLEEPING);
                 this.buffer.wait();
             }
 
             int num = this.buffer.remove();
+            gui.updateCard(ConsumerCard.CONSUMING);
             System.out.println(getName() + ": got: " + num);
             this.buffer.notifyAll();
         }
-        Thread.sleep(this.sleep);
+        Thread.sleep(CONSUME_SLEEP);
     }
 
     @Override
