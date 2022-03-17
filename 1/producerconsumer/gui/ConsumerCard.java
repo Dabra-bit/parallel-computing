@@ -13,8 +13,8 @@ import java.awt.FlowLayout;
 public class ConsumerCard extends JPanel {
     public static final int CONSUMING = 1;
     public static final int SLEEPING = 2;
-    private static final String CONSUMING_IMG = "images/consumer.png";
-    private static final String SLEEPING_IMG = "images/sleep.jpg";
+    private static final String CONSUMING_IMG = "/Users/dberrosp/ceti/parallel-computing/1/producerconsumer/gui/images/consumer.png";
+    private static final String SLEEPING_IMG = "/Users/dberrosp/ceti/parallel-computing/1/producerconsumer/gui/images/sleep.jpg";
 
     private String name;
     private BufferedImage image;
@@ -58,7 +58,7 @@ public class ConsumerCard extends JPanel {
     private BufferedImage readImg(String pathname) {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(getClass().getResource(pathname));
+            image = ImageIO.read(new File(pathname));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,8 +13,8 @@ import java.awt.FlowLayout;
 public class ProducerCard extends JPanel {
     public static final int PRODUCING = 1;
     public static final int SLEEPING = 2;
-    private static final String PRODUCING_IMG = "images/producer.jpg";
-    private static final String SLEEPING_IMG = "images/sleep.jpg";
+    private static final String PRODUCING_IMG = "/Users/dberrosp/ceti/parallel-computing/1/producerconsumer/gui/images/producer.jpg";
+    private static final String SLEEPING_IMG = "/Users/dberrosp/ceti/parallel-computing/1/producerconsumer/gui/images/sleep.jpg";
 
     private String name;
     private BufferedImage image;
@@ -58,7 +58,7 @@ public class ProducerCard extends JPanel {
     private BufferedImage readImg(String pathname) {
         BufferedImage tmpImg = null;
         try {
-            tmpImg = ImageIO.read(getClass().getResource(pathname));
+            tmpImg = ImageIO.read(new File(pathname));
         } catch (IOException e) {
             e.printStackTrace();
         }
