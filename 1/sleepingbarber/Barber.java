@@ -16,7 +16,11 @@ public class Barber extends Thread{
         Thread client = clientQueue.poll();
 
         if(client == null) {
-
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         try {
