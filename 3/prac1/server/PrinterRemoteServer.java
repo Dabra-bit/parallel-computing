@@ -13,6 +13,8 @@ public class PrinterRemoteServer extends UnicastRemoteObject implements PrinterR
         try {
             PrinterRemote printerRemote = new PrinterRemoteServer();
 
+            System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
+
             Naming.rebind("//" + InetAddress.getLocalHost().getHostAddress() + ":" + args[0] + "/RMITest",
                     printerRemote);
             
