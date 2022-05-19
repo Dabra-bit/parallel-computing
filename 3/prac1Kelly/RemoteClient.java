@@ -1,6 +1,7 @@
 package prac1Kelly;
 
 import java.rmi.Naming;
+import prac1Kelly.P_Remote;
 
 public class RemoteClient {
     public static void main(String[] args) {
