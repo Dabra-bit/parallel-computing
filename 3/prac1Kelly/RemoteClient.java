@@ -6,7 +6,7 @@ public class RemoteClient {
     public static void main(String[] args) {
         try {
 
-            PRemote printeRemote = (PRemote) Naming.lookup("//" + args[0] + ":" + args[1] + "P_RMI");
+            MyRemote printeRemote = (MyRemote) Naming.lookup("//" + args[0] + ":" + args[1] + "P_RMI");
             printeRemote.metodo1();
             
         } catch (Exception e) {

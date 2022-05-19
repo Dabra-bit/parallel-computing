@@ -5,7 +5,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class RemoteServer extends UnicastRemoteObject implements PRemote{
+public class RemoteServer extends UnicastRemoteObject implements MyRemote{
 
     protected RemoteServer() throws RemoteException {
         super();
@@ -13,7 +13,7 @@ public class RemoteServer extends UnicastRemoteObject implements PRemote{
 
     public static void main(String[] args) throws RemoteException {
         try {
-            PRemote printeRemote = new RemoteServer();
+            MyRemote printeRemote = new RemoteServer();
 
             System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
 
