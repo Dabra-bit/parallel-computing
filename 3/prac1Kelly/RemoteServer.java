@@ -4,10 +4,8 @@ import java.net.InetAddress;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import prac1Kelly.P_Remote;
 
-
-public class RemoteServer extends UnicastRemoteObject implements P_Remote{
+public class RemoteServer extends UnicastRemoteObject implements PRemote{
 
     protected RemoteServer() throws RemoteException {
         super();
@@ -15,7 +13,7 @@ public class RemoteServer extends UnicastRemoteObject implements P_Remote{
 
     public static void main(String[] args) throws RemoteException {
         try {
-            P_Remote printeRemote = new RemoteServer();
+            PRemote printeRemote = new RemoteServer();
 
             System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
 
