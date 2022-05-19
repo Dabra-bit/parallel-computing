@@ -1,5 +1,7 @@
 package prac1Kelly;
 
+import java.net.InetAddress;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -13,7 +15,12 @@ public class RemoteServer extends UnicastRemoteObject implements P_Remote{
         try {
             P_Remote printeRemote = new RemoteServer();
 
-                java.rmi.Naming.rebind("//" + java.net.InetAddress.getLocalHost().getHostAddress() + ":" + args[0] + "/P_RMI", printeRemote);
+            System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
+
+            Naming.rebind("//" + InetAddress.getLocalHost().getHostAddress() + ":" + args[0] + "/P_RMI",
+                    printeRemote);
+
+                //java.rmi.Naming.rebind("//" + java.net.InetAddress.getLocalHost().getHostAddress() + ":" + args[0] + "/P_RMI", printeRemote);
 
         } catch (Exception e) {
             e.printStackTrace();
