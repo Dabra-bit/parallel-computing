@@ -22,7 +22,8 @@ public class PrinterRemoteServer extends Activatable implements PrinterRemote {
 
     public static void main(String[] args) {
         try {
-            String myIP = InetAddress.getLocalHost().getHostAddress();
+            String myIP = "192.168.45.115";
+            System.out.println(myIP);
             Properties props = new Properties();
             props.put("java.security.policy", "/Users/dberrosp/ceti/parallel-computing/3/prac2/policy");
             props.put("java.rmi.server.hostname", myIP);
@@ -49,6 +50,7 @@ public class PrinterRemoteServer extends Activatable implements PrinterRemote {
 
     @Override
     public String print() throws RemoteException {
+        System.out.println("Hello, World! from server.");
         return "Hello, World! from server.";
     }
 }
