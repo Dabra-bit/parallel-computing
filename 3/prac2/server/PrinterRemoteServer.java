@@ -1,6 +1,5 @@
 package prac2.server;
 
-import java.net.InetAddress;
 import java.rmi.MarshalledObject;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
