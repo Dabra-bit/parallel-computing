@@ -17,7 +17,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface, Comp
     public static void main(String[] args) {
         try {
             boolean hardcoded = true;
-            String ip = hardcoded ? "192.168.100.54" : InetAddress.getLocalHost().getHostAddress();
+            String ip = hardcoded ? IPs[1] : InetAddress.getLocalHost().getHostAddress();
             Client client = new Client();
             SwingUtilities.invokeLater(() -> client.initChatWindow());
 

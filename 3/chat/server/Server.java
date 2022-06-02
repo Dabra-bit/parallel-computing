@@ -21,7 +21,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Clie
     public static void main(String[] args) {
         try {
             boolean hardcoded = true;
-            String ip = hardcoded ? "192.168.100.254" : InetAddress.getLocalHost().getHostAddress();
+            String ip = hardcoded ? IPs[0] : InetAddress.getLocalHost().getHostAddress();
             Server server = new Server();
             SwingUtilities.invokeLater(() -> server.initChatWindow());
 
