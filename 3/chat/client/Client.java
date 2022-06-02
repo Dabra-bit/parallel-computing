@@ -16,7 +16,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface, Comp
     public ChatWindow chatWindow;
     public static void main(String[] args) {
         try {
-            boolean hardcoded = false;
+            boolean hardcoded = true;
             String ip = hardcoded ? "192.168.100.54" : InetAddress.getLocalHost().getHostAddress();
             Client client = new Client();
             SwingUtilities.invokeLater(() -> client.initChatWindow());
@@ -36,6 +36,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface, Comp
 
     public void initChatWindow() {
         chatWindow = new ChatWindow("Chat app");
+        chatWindow.setVisible(true);
     }
 
     @Override

@@ -20,8 +20,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Clie
 
     public static void main(String[] args) {
         try {
-            boolean hardcoded = false;
-            String ip = hardcoded ? "192.168.100.54" : InetAddress.getLocalHost().getHostAddress();
+            boolean hardcoded = true;
+            String ip = hardcoded ? "192.168.100.254" : InetAddress.getLocalHost().getHostAddress();
             Server server = new Server();
             SwingUtilities.invokeLater(() -> server.initChatWindow());
 
@@ -40,6 +40,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Clie
 
     public void initChatWindow() {
         chatWindow = new ChatWindow("Chat app");
+        chatWindow.setVisible(true);
     }
 
     @Override
