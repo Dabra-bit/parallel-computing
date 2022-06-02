@@ -9,9 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import chat.client.ClientInterface;
-import chat.client.ComputersConstants;
-import chat.server.ServerInterface;
+import chat.common.MessageInterface;
+import chat.common.ComputersConstants;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -73,9 +72,9 @@ public class ChatWindow extends JFrame implements ComputersConstants {
         btnSend.addActionListener(actionEvent -> sendMessage());
         
         int i = 1;
-        String[] opts = new String[IPs.length + 1];
+        String[] opts = new String[CLIENTS_IPS.length + 1];
         opts[0] = "All";
-        for(String ip : IPs) {
+        for(String ip : CLIENTS_IPS) {
             opts[i++] = ip;
         }
 
@@ -117,14 +116,14 @@ public class ChatWindow extends JFrame implements ComputersConstants {
         
         if(ip.equals("All")) {
             try {
-                ServerInterface server = (ServerInterface) Naming.lookup("//" + IPs[0] + ":1099/RMIChat");
-                server.sendGlobalMessage(tAreaInput.getText());
+                MessageInterface server = (MessageInterface) Naming.lookup("rmi://" + SERVER_IP + ":1099/RMIChat");
+                server.showMessage(tAreaInput.getText());
             } catch (RemoteException | MalformedURLException | NotBoundException e) {
                 e.printStackTrace();
             }
         } else {
             try {
-                ClientInterface client = (ClientInterface) Naming.lookup("//" + ip + ":1099/RMIChat");
+                MessageInterface client = (MessageInterface) Naming.lookup("rmi://" + ip + ":1099/RMIChat");
                 client.showMessage(tAreaInput.getText());
             } catch (RemoteException | MalformedURLException | NotBoundException e) {
                 e.printStackTrace();

@@ -9,20 +9,22 @@ import java.rmi.server.UnicastRemoteObject;
 
 import javax.swing.SwingUtilities;
 
+import chat.common.MessageInterface;
+import chat.common.ComputersConstants;
 import chat.window.ChatWindow;
 
-public class Client extends UnicastRemoteObject implements ClientInterface, ComputersConstants {
+public class Client extends UnicastRemoteObject implements MessageInterface, ComputersConstants {
 
     public ChatWindow chatWindow;
     public static void main(String[] args) {
         try {
             boolean hardcoded = true;
-            String ip = hardcoded ? IPs[1] : InetAddress.getLocalHost().getHostAddress();
-            Client client = new Client();
-            SwingUtilities.invokeLater(() -> client.initChatWindow());
+            String ip = hardcoded ? CLIENTS_IPS[0] : InetAddress.getLocalHost().getHostAddress();
+            MessageInterface client = new Client();
+            SwingUtilities.invokeLater(() -> ((Client) client).initChatWindow());
 
             System.setProperty("java.rmi.server.hostname", ip);
-            Naming.rebind("//" + ip + ":1099/RMIChat",
+            Naming.rebind("rmi://" + ip + ":1099/RMIChat",
                     client);
 
         } catch (MalformedURLException | UnknownHostException | RemoteException e) {
