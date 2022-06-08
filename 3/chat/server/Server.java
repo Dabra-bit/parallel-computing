@@ -35,8 +35,9 @@ public class Server extends UnicastRemoteObject implements MessageInterface, Com
     public String showMessage(String message) throws RemoteException {
         System.out.println("Broadcasting: " + message);
         for (String ip : CLIENTS_IPS) {
+            System.out.println(ip);
             try {
-                MessageInterface client = (MessageInterface) Naming.lookup("rmi//" + ip + ":1099/RMIChat");
+                MessageInterface client = (MessageInterface) Naming.lookup("rmi://" + ip + ":1099/RMIChat");
                 client.showMessage(message);
             } catch (MalformedURLException | NotBoundException e) {
                 e.printStackTrace();

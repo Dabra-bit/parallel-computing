@@ -4,41 +4,48 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 public class MergeSortForkJoin {
-    public void sort(Integer[] a) {
-        Integer[] helper = new Integer[a.length];
+    public void sort(int[] a) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        forkJoinPool.invoke(new MergeSortTask(a, helper, 0, a.length-1));
+        forkJoinPool.invoke(new MergeSortTask(a));
     }
 
     private class MergeSortTask extends RecursiveAction {
-        private static final long serialVersionUID = -749935388568367268L;
-        private final Integer[] a;
-        private final Integer[] helper;
-        private final int lo;
-        private final int hi;
-        
-        public MergeSortTask(Integer[] a, Integer[] helper, int lo, int hi) {
-                this.a = a;
-                this.helper = helper;
-                this.lo = lo;
-                this.hi = hi;
+        private final int[] arr;
+
+        public MergeSortTask(int[] arr) {
+            this.arr = arr;
         }
-        
+
         @Override
-        protected void compute() {
-            if(lo < hi) {
-                int mid = lo + (hi - lo) / 2;
-                MergeSortTask left = new MergeSortTask(a, helper, lo, mid);
-                MergeSortTask right = new MergeSortTask(a, helper, mid+1, hi);
-                invokeAll(left, right);
-                merge(this.a, this.helper, this.lo, mid, this.hi);
-            } else {
+        public void compute() {
+            if (arr.length < 2)
                 return;
-            }
+            int mid = arr.length / 2;
+
+            int[] left = new int[mid];
+            System.arraycopy(arr, 0, left, 0, mid);
+
+            int[] right = new int[arr.length - mid];
+            System.arraycopy(arr, mid, right, 0, arr.length - mid);
+
+            invokeAll(new MergeSortTask(left), new MergeSortTask(right));
+            merge(left, right);
         }
 
-        private void merge(Integer[] a, Integer[] helper, int lo, int mid, int hi) {
-
+        private void merge(int[] left, int[] right) {
+            int i = 0, j = 0, k = 0;
+            while (i < left.length && j < right.length) {
+                if (left[i] < right[j])
+                    arr[k++] = left[i++];
+                else
+                    arr[k++] = right[j++];
+            }
+            while (i < left.length) {
+                arr[k++] = left[i++];
+            }
+            while (j < right.length) {
+                arr[k++] = right[j++];
+            }
         }
     }
 }
